@@ -1,0 +1,14 @@
+fastapi
+uvicorn[standard]
+sqlalchemy
+httpx
+python-dotenv
+pydantic
+pydantic-settings
+cachetools
+python-multipart
+tenacity
+streamlit
+requests
+pandas
+plotly
