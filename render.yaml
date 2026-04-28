@@ -1,0 +1,25 @@
+# render.yaml
+services:
+  - type: web
+    name: intelligent-query-engine
+    runtime: python
+    repo: https://github.com/YOUR_USERNAME/intelligent-query-engine
+    plan: free
+    region: oregon
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: OPENROUTER_API_KEY
+        sync: false
+      - key: DATABASE_URL
+        value: sqlite:///./transactions.db
+      - key: LLM_MODEL
+        value: openai/gpt-3.5-turbo
+      - key: USE_REDIS
+        value: false
+      - key: CACHE_TTL
+        value: 3600
+      - key: MAX_QUERY_COMPLEXITY
+        value: 10
+      - key: LOG_LEVEL
+        value: INFO
