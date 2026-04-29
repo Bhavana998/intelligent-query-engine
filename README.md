@@ -96,14 +96,19 @@ User Query: "How much did I spend on food last month?"
  ## 🏗️ Architecture
 
  User Query
+ 
    ↓
 API (FastAPI)
+
    ↓
 NL → SQL Converter
+
    ↓
 Database (SQLite/PostgreSQL)
+
    ↓
 LLM Insight Generator
+
    ↓
 Response
 
