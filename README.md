@@ -42,6 +42,39 @@ User Query: "How much did I spend on food last month?"
 
 → Insight Generated**
 
+The system currently uses rule-based parsing to convert queries into SQL.
+Future improvement includes LLM-based SQL generation for better flexibility.
+
+## Design Decisions
+
+- FastAPI: Lightweight and fast for building APIs
+- SQLite: Simple setup for prototype
+- Modular pipeline: Easy to scale and replace components
+
+  ## Security
+
+- Parameterized SQL queries used to prevent SQL injection
+- Input validation applied on user queries
+
+  ## Caching
+
+- Repeated queries are cached in memory
+- Improves response time and reduces redundant processing
+  
+  ## Limitations
+
+- Limited handling of complex queries
+- Depends on predefined rules/prompts
+- Not optimized for large datasets
+
+  ## Future Improvements
+
+- LLM-based SQL generation
+- Redis caching
+- Query history tracking
+- Analytics dashboard
+- Async processing for scalability
+
 ### Business Impact
 | Metric | Improvement |
 |--------|-------------|
@@ -170,8 +203,8 @@ OpenRouter - Unified LLM API
 SQLAlchemy - Python SQL toolkit
 Render - Cloud deployment platform
 
-📞 Contact
-GitHub: bhavana998
-
-Project: intelligent-query-engine
+## Author
+Bhavana  
+- GitHub: https://github.com/Bhavana998    
+- Email: bhavanasetty95@gmail.com
 
