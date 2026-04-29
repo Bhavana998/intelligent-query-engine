@@ -43,7 +43,27 @@ User Query: "How much did I spend on food last month?"
 → Insight Generated**
 
 The system currently uses rule-based parsing to convert queries into SQL.
-Future improvement includes LLM-based SQL generation for better flexibility.
+Future improvement includes LLM-based SQL generation for better flexibility
+
+## Natural Language to SQL Conversion
+
+The system converts user queries into SQL using a rule-based approach.
+
+Example:
+Input: "How much did I spend on food last month?"
+
+SQL:
+SELECT SUM(amount)
+FROM transactions
+WHERE category = 'food'
+AND transaction_date >= DATE('now', '-1 month');
+
+Supports:
+- Aggregations (SUM, COUNT)
+- Filters (category, date)
+
+Future Improvement:
+- LLM-based SQL generation for flexible queries
 
 ## Design Decisions
 
