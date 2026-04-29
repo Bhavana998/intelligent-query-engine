@@ -27,7 +27,20 @@
 
 ## 🎯 Overview
 
-The **Intelligent Query Engine** bridges the gap between human language and database queries. It allows users to ask natural language questions about financial data and receive both raw results and AI-generated insights - **no SQL knowledge required!**
+The **Intelligent Query Engine**
+
+This project is a backend system that converts natural language queries 
+into SQL, executes them on a transaction database, and generates 
+human-readable insights using an LLM.
+
+Example:
+User Query: "How much did I spend on food last month?"
+
+→ SQL Generated
+
+→ Data Retrieved
+
+→ Insight Generated**
 
 ### Business Impact
 | Metric | Improvement |
@@ -80,75 +93,19 @@ The **Intelligent Query Engine** bridges the gap between human language and data
 7. **Caching** → Results stored for future use
 
 ---
- ## 🏗️ step by step flow
-─────────────────────────────────────────────────────────────────┐
-│ STEP 1: User Input │
-├─────────────────────────────────────────────────────────────────┤
-│ User types: "How much did I spend on food last month?" │
-│ API receives: {"user_id": 1, "question": "..."} │
-└─────────────────────────────────────────────────────────────────┘
-│
-▼
-┌─────────────────────────────────────────────────────────────────┐
-│ STEP 2: Cache Lookup │
-├─────────────────────────────────────────────────────────────────┤
-│ Key: "1:how much did i spend on food last month" │
-│ Result: MISS (not in cache) │
-└─────────────────────────────────────────────────────────────────┘
-│
-▼
-┌─────────────────────────────────────────────────────────────────┐
-│ STEP 3: SQL Generation (LLM) │
-├─────────────────────────────────────────────────────────────────┤
-│ Input: Natural language question │
-│ Processing: OpenRouter GPT-3.5-turbo │
-│ Output: SELECT COALESCE(SUM(amount),0) as total_spent │
-│ FROM transactions WHERE user_id=1 │
-│ AND category='food' │
-│ AND strftime('%Y-%m', transaction_date) │
-│ = strftime('%Y-%m', 'now', '-1 month') │
-└─────────────────────────────────────────────────────────────────┘
-│
-▼
-┌─────────────────────────────────────────────────────────────────┐
-│ STEP 4: Query Execution │
-├─────────────────────────────────────────────────────────────────┤
-│ Database: SQLite │
-│ Query: Executes SQL safely with SQLAlchemy │
-│ Result: [{"total_spent": 2896.43}] │
-└─────────────────────────────────────────────────────────────────┘
-│
-▼
-┌─────────────────────────────────────────────────────────────────┐
-│ STEP 5: Insight Generation (LLM) │
-├─────────────────────────────────────────────────────────────────┤
-│ Input: Results + Original question │
-│ Processing: OpenRouter GPT-3.5-turbo │
-│ Output: "You spent $2,896.43 on food last month..." │
-└─────────────────────────────────────────────────────────────────┘
-│
-▼
-┌─────────────────────────────────────────────────────────────────┐
-│ STEP 6: Post-Processing │
-├─────────────────────────────────────────────────────────────────┤
-│ • Save to cache (TTL: 1 hour) │
-│ • Save to query history │
-│ • Update analytics │
-└─────────────────────────────────────────────────────────────────┘
-│
-▼
-┌─────────────────────────────────────────────────────────────────┐
-│ STEP 7: Response │
-├─────────────────────────────────────────────────────────────────┤
-│ { │
-│ "question": "...", │
-│ "sql": "...", │
-│ "results": [{"total_spent": 2896.43}], │
-│ "insights": "...", │
-│ "execution_time_ms": 3034, │
-│ "from_cache": false │
-│ } │
-└─────────────────────────────────────────────────────────────────┘
+ ## 🏗️ Architecture
+
+ User Query
+   ↓
+API (FastAPI)
+   ↓
+NL → SQL Converter
+   ↓
+Database (SQLite/PostgreSQL)
+   ↓
+LLM Insight Generator
+   ↓
+Response
 
 ## 🛠️ Tech Stack
 
